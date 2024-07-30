@@ -1,5 +1,3 @@
-// Executed with Typescript Playground
-
 type Dog = {
     name: string, 
     tailWagSpeed: number
@@ -65,7 +63,7 @@ const isOfTypeDog = (child: any): child is Dog  => {
     return child.name !== undefined && child.tailWagSpeed !== undefined
 }
 
-const getChildren = (family: Family<Person|Dog>) => {
+const printChildren = (family: Family<Person|Dog>) => {
     if (family.children.length >= 1 ){ 
         family.children.forEach((child) => {
             console.log(`Child's name is : ${child.name}`)
@@ -80,6 +78,27 @@ const getChildren = (family: Family<Person|Dog>) => {
     }
 }
 
-// Call 
-getChildren(FidoDogFamily)
-getChildren(JohnsonPersonFamily)
+// Generic Functions must use <T extends unknown> for arrow functions
+const addChild = <T extends unknown>(newChild: T, family: Family<T>) => {
+    family.children.push(newChild)
+    console.log(`Added newChild: ${JSON.stringify(family.children, null, 2)}`)
+}
+
+// Test TypeGuard
+printChildren(FidoDogFamily)
+printChildren(JohnsonPersonFamily)
+
+// Test Generic functions
+const newPersonChild: Person = {
+    name: 'heidi', 
+    occupation: 'healer'
+}
+const newDogChild: Dog = {
+    name: 'ida', 
+    tailWagSpeed: 4
+}
+
+addChild(newPersonChild, JohnsonPersonFamily)
+// Adding a Person to a Family<Dog> causes a type error 
+// addChild(newPersonChild, FidoDogFamily) 
+addChild(newDogChild, FidoDogFamily)
