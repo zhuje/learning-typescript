@@ -78,12 +78,22 @@ const printChildren = (family: Family<Person|Dog>) => {
     }
 }
 
-// Generic Functions must use <T extends unknown> for arrow functions
+// GENERIC FUNCTIONS
+// Must use <T extends unknown> for arrow functions
 const addChild = <T extends unknown>(newChild: T, family: Family<T>) => {
     family.children.push(newChild)
     console.log(`Added newChild: ${JSON.stringify(family.children, null, 2)}`)
 }
 
+const getChildren = <T extends unknown>(family: Family<T>) : T[] => {
+    return family.children
+}
+
+const printObjects = (obj) => {
+    console.log(JSON.stringify(obj, null, 2))
+}
+
+// EXECUTE
 // Test TypeGuard
 printChildren(FidoDogFamily)
 printChildren(JohnsonPersonFamily)
@@ -97,8 +107,12 @@ const newDogChild: Dog = {
     name: 'ida', 
     tailWagSpeed: 4
 }
-
-addChild(newPersonChild, JohnsonPersonFamily)
+addChild<Person>(newPersonChild, JohnsonPersonFamily)
 // Adding a Person to a Family<Dog> causes a type error 
 // addChild(newPersonChild, FidoDogFamily) 
-addChild(newDogChild, FidoDogFamily)
+addChild<Dog>(newDogChild, FidoDogFamily)
+
+const personChildren = getChildren<Person>(JohnsonPersonFamily);
+const dogChildren = getChildren<Dog>(FidoDogFamily)
+printObjects(personChildren);
+printObjects(dogChildren)
