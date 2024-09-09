@@ -13,8 +13,8 @@
 
 ## Advanced Object Types
 Object oriented programming with Typescript (x)
-- Concept 1) Interfaces and Typess (x)
-- Concept 2) Interfaces and Types (x)
+- Concept 1) Interfaces vs Types (x)
+- Concept 2) Classes Implement Interfaces (x)
 - Concept 3) Deep Types (x)
 - Concept 4) Composed Types (x)
 - Concept 5) Extending Interfaces (x)

@@ -87,7 +87,7 @@ Desktop.addFile('fileABC.txt')
 Desktop.showPreview('abc-abc-abc-abc-abc-abc')
 
 /**
- * Concept 5) Composed Types 
+ * Concept 4) Composed Types 
  * Nested properties in an interface can become hard to read. 
  * We want to break this up into multiple interfaces. 
  * This section refactors the code from Concept 4. 
@@ -124,7 +124,7 @@ interface Directory {
 }
 
 /**
- * Concept 6) Extending Interfaces 
+ * Concept 5) Extending Interfaces 
  * extends : class extends class, interface extends interface
  * implements : class implements interface 
  */
@@ -192,3 +192,78 @@ console.log('\nLet frost the cake.')
 myCake.frostCake('vanilla')
 myCake.checkFrosting()
 
+/**
+ * Concept 6) Index Signatures
+ * Index signatures are a way we can include a variable name for a unknown property name. 
+ * This is useful when you are calling an api and you don't know what the property name will be 
+ * but is guarenteed to be a specific type. 
+ */
+
+const mockBudgetAPI = () => {
+  return {
+    'shopping': 100, 
+    'groceries': 200,
+    'rent': 300
+  }
+}
+
+
+interface Budget {
+  // this is the Index Signature
+  [budgetItem: string]: number
+}
+
+const getBudget = () => {
+  const result: Budget = mockBudgetAPI();
+  console.log(result.budgetItem)
+}
+
+console.log("\n******* Concept 6) Index Signatures *****")
+getBudget(); 
+
+/**
+ * Concept 7) Optional Type Members 
+ * Add a `?` to properties in an interface that are optional 
+ */
+
+interface UserNameOptions {
+  firstName?: string; // optional
+  lastName?: string; // optional
+  username: string; // mandatory
+}
+
+const getUsername = (options: UserNameOptions) => {
+  if (options.firstName && options.lastName) {
+    console.log(`${options.firstName} ${options.lastName}`)
+  } else {
+    console.log(`${options.username}`)
+  }
+}
+
+const client1: UserNameOptions = {
+  firstName: 'anna', 
+  lastName: 'apple', 
+  username: 'aapple'
+}
+
+const client2: UserNameOptions = {
+  firstName: 'bob',
+  username: 'bob'
+}
+
+const client3: UserNameOptions = {
+  lastName: 'craig', 
+  username: 'craig'
+}
+
+const client4: UserNameOptions = {
+  username: 'derek'
+}
+
+
+
+console.log("\n******* Concept 7) Optional Type Members *****")
+getUsername(client1)
+getUsername(client2)
+getUsername(client3)
+getUsername(client4)
